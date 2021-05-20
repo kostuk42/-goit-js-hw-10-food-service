@@ -2326,13 +2326,40 @@ var _menu = _interopRequireDefault(require("./menu.json"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-console.log(_templateMenu.default);
-console.log(_menu.default);
+// rendering menu tamplates to HTML
 var placeToInsert = document.querySelector('.js-menu');
 
 _menu.default.forEach(function (elemMenu) {
   var markup = (0, _templateMenu.default)(elemMenu);
   placeToInsert.insertAdjacentHTML('beforeend', markup);
-});
+}); // switching dark/light themes
+
+
+var Theme = {
+  LIGHT: 'light-theme',
+  DARK: 'dark-theme'
+};
+var switcherElem = document.querySelector('.theme-switch__toggle');
+var currentTheme = localStorage.getItem('currentTheme');
+var bodyClassElem = document.body.classList;
+
+var onChange = function onChange(e) {
+  bodyClassElem.toggle(Theme.DARK);
+  bodyClassElem.toggle(Theme.LIGHT);
+  localStorage.setItem('currentTheme', bodyClassElem[0]);
+};
+
+if (currentTheme === null) {
+  localStorage.setItem('currentTheme', Theme.LIGHT);
+  bodyClassElem.add(Theme.LIGHT);
+} else {
+  bodyClassElem.add(currentTheme);
+}
+
+if (currentTheme === Theme.DARK) {
+  switcherElem.checked = true;
+}
+
+switcherElem.addEventListener('change', onChange);
 },{"./templates/templateMenu.hbs":"AkgI","./menu.json":"mA8c"}]},{},["Focm"], null)
-//# sourceMappingURL=/-goit-js-hw-10-food-service/src.1e81c3c0.js.map
+//# sourceMappingURL=/-goit-js-hw-10-food-service/src.0d2e5ed2.js.map
